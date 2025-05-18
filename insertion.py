@@ -1,52 +1,58 @@
 """
 insertion_sort_desc.py
 
-This script implements the Insertion Sort algorithm to sort a list of numbers
-in monotonically decreasing order.
+Final version of the Insertion Sort algorithm that sorts a list in monotonically
+descending order. This version allows user input and includes input validation.
 
 Author: [Your Name]
 Course: MSCS532
 Assignment: Assignment 1 - Insertion Sort (Descending)
 """
 
-def insertion_sort_desc(arr):
+from typing import List
+
+def insertion_sort_desc(arr: List[int]) -> List[int]:
     """
-    Sorts the given list in-place in descending order using insertion sort.
-    
+    Sorts a list of integers in descending order using the insertion sort algorithm.
+
     Parameters:
-        arr (list): List of integers or floats to be sorted.
-        
+        arr (List[int]): The list of integers to sort.
+
     Returns:
-        list: The sorted list in descending order.
+        List[int]: The sorted list in descending order.
     """
     for i in range(1, len(arr)):
         key = arr[i]
         j = i - 1
-
-        # Shift elements of arr[0..i-1], that are less than key, to one position ahead
         while j >= 0 and arr[j] < key:
             arr[j + 1] = arr[j]
             j -= 1
-
         arr[j + 1] = key
-
     return arr
 
 def main():
     """
-    Demonstrates the use of the insertion_sort_desc function with example input.
+    Main function that gets input from the user, sorts it, and prints the result.
     """
-    # Sample data
-    sample_data = [29, 10, 14, 37, 13, 7, 18]
+    user_input = input("Enter numbers separated by spaces: ").strip()
 
-    print("Original array:")
-    print(sample_data)
+    if not user_input:
+        print("No input provided.")
+        return
 
-    # Sort in descending order
-    sorted_data = insertion_sort_desc(sample_data)
+    try:
+        numbers = list(map(int, user_input.split()))
+    except ValueError:
+        print("Invalid input. Please enter integers only.")
+        return
 
-    print("\nSorted array in descending order:")
-    print(sorted_data)
+    print("\nOriginal list:")
+    print(numbers)
+
+    sorted_numbers = insertion_sort_desc(numbers)
+
+    print("\nSorted list in descending order:")
+    print(sorted_numbers)
 
 if __name__ == "__main__":
     main()
